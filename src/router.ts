@@ -20,8 +20,15 @@ export default new Router({
         },
         {
             path: '/login',
-            name: 'login',
-            component: () => import('@/pages/Login.vue'),
+            name: 'onboard',
+            component: () => import('@/pages/Onboard.vue'),
+            children: [
+                {
+                    path: '',
+                    name: 'login',
+                    component: () => import('@/pages/Login.vue'),
+                },
+            ],
         },
     ],
 });

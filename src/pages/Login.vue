@@ -1,6 +1,40 @@
 <template>
 	<div class="login">
-		Login works...
+		<v-layout>
+			<v-flex xs12 sm6 offset-sm3>
+				<v-form v-model="loginValid">
+					<v-card>
+						<v-card-title class="header">Login</v-card-title>
+
+						<v-card-text>
+								<v-text-field
+									prepend-icon="person"
+									v-model="form.email.value"
+									:rules="form.email.rule"
+									label="Email"
+									required></v-text-field>
+								<v-text-field
+									prepend-icon="lock"
+									v-model="form.password.value"
+									:rules="form.password.rule"
+									label="Password"
+									type="password"
+									required></v-text-field>
+						</v-card-text>
+
+						<v-card-actions>
+							<v-btn
+								block="true"
+								color="secondary"
+								:disabled="!loginValid"
+								@click="submit">
+								Login
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+				</v-form>
+			</v-flex>
+		</v-layout>
 	</div>
 </template>
 
@@ -8,11 +42,37 @@
 	import { Component, Vue } from 'vue-property-decorator';
 
 	@Component({})
-	class Login extends Vue {}
+	class Login extends Vue {
+		public loginValid: boolean = false;
+		public form = {
+			email: {
+				value: '',
+				rule: [
+					(v: string) => !!v || 'Email is required',
+					(v: string) => /.+@.+/.test(v) || 'E-mail must be valid',
+				],
+			},
+			password: {
+				value: '',
+				rule: [
+					(v: string) => !!v || 'Password is required',
+					(v: string) => v.length >= 8 || '',
+				],
+			},
+		};
+
+		public submit() {
+			alert('submitted');
+		}
+	}
 
 	export default Login;
 </script>
 
 <style lang="scss" scoped>
-
+	.header {
+		font-size: 28px;
+		justify-content: center;
+		text-align: center;
+	}
 </style>
