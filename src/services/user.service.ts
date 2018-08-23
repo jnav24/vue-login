@@ -19,7 +19,7 @@ class UserService extends Vue {
 
     public isLoggedIn(user: UserInterface | null = null): boolean {
         console.log(this.cookieService.getCookie(userCookie));
-        if (user === null || typeof user !== UserInterface) {
+        if (user == null || !user.hasOwnProperty('email')) {
             const cookie = this.cookieService.getCookie(userCookie);
             console.log(cookie != null && this.validateCookie(cookie));
             console.log('=============================');
