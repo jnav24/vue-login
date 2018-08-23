@@ -30,5 +30,13 @@ export default new Router({
                 },
             ],
         },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: () => import('@/pages/Dashboard.vue'),
+            beforeEnter: (to, from, next) => {
+                next();
+            },
+        },
     ],
 });

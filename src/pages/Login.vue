@@ -23,11 +23,11 @@
 						</v-card-text>
 
 						<v-card-actions>
+							<!--:disabled="!loginValid"-->
 							<v-btn
-								block="true"
 								color="secondary"
-								:disabled="!loginValid"
-								@click="submit">
+								@click="submit"
+								block>
 								Login
 							</v-btn>
 						</v-card-actions>
@@ -40,6 +40,7 @@
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
+	import {UserInterface} from '../interfaces/user.interface';
 
 	@Component({})
 	class Login extends Vue {
@@ -62,7 +63,11 @@
 		};
 
 		public submit() {
-			alert('submitted');
+			this.$store.commit('addUser', {
+				email: this.form.email.value,
+			});
+			this.$router.push({ name: 'dashboard' });
+			// alert('submitted');
 		}
 	}
 
