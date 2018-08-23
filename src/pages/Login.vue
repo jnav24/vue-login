@@ -1,5 +1,6 @@
 <template>
 	<div class="login">
+		<router-link to="/dashboard">Test</router-link>
 		<v-layout>
 			<v-flex xs12 sm6 offset-sm3>
 				<v-form v-model="loginValid">
@@ -41,6 +42,8 @@
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import {UserInterface} from '../interfaces/user.interface';
+	import UserService from '../services/user.service';
+	import { Getter, Mutation } from 'vuex-class';
 
 	@Component({})
 	class Login extends Vue {
@@ -61,13 +64,17 @@
 				],
 			},
 		};
+		@Mutation('addUser') private addUser: any;
+		private userService: UserService = new UserService();
 
 		public submit() {
-			this.$store.commit('addUser', {
-				email: this.form.email.value,
-			});
-			this.$router.push({ name: 'dashboard' });
-			// alert('submitted');
+			const user: UserInterface | null = this.userService.getUser();
+			console.log(user);
+			if (user !== null) {
+				// this.addUser(user);
+				this.$store.commit('addUser', user);
+				this.$router.push({ name: 'dashboard' });
+			}
 		}
 	}
 

@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Dashboard from './pages/Dashboard.vue';
+import UserService from '@/services/user.service';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -33,10 +35,20 @@ export default new Router({
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: () => import('@/pages/Dashboard.vue'),
+            component: Dashboard,
             beforeEnter: (to, from, next) => {
+                console.log('router hello...');
+                const userService = new UserService();
+                console.log(userService.isLoggedIn());
+
+                if (!userService.isLoggedIn()) {
+                    next('/login');
+                }
+
                 next();
             },
         },
     ],
 });
+
+export default router;

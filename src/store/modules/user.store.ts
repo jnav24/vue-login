@@ -12,7 +12,6 @@ const User = {
     actions: {},
     mutations: {
         addUser(state: any, usr: UserInterface) {
-            console.log(usr);
             state.user = usr;
         },
     },
