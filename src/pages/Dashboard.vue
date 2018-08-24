@@ -39,13 +39,10 @@
 		@Mutation public addUser: any;
 
 		public beforeRouteEnter(to: Route, from: Route, next: any) {
-			console.log('dashboard hello...');
 			next((vm: any) => {
 				const userService = new UserService();
-				console.log(userService.isLoggedIn(vm.$store.getters.user));
-				console.log(vm.$store.getters.user);
+
 				if (!userService.isLoggedIn(vm.$store.getters.user)) {
-					console.log('nope');
 					vm.$router.push({ name: 'login' });
 				}
 			});

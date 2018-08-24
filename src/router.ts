@@ -37,9 +37,7 @@ const router = new Router({
             name: 'dashboard',
             component: Dashboard,
             beforeEnter: (to, from, next) => {
-                console.log('router hello...');
                 const userService = new UserService();
-                console.log(userService.isLoggedIn());
 
                 if (!userService.isLoggedIn()) {
                     next('/login');
