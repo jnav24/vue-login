@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import Dashboard from './pages/Dashboard.vue';
+import Dashboard from './pages/dashboard/Dashboard.vue';
 import UserService from '@/services/user.service';
 
 Vue.use(Router);
@@ -36,6 +36,13 @@ const router = new Router({
             path: '/dashboard',
             name: 'dashboard',
             component: Dashboard,
+            children: [
+                {
+                    path: 'profile',
+                    name: 'profile',
+                    component: () => import('@/pages/dashboard/profile/Profile.vue'),
+                },
+            ],
             beforeEnter: (to, from, next) => {
                 const userService = new UserService();
 

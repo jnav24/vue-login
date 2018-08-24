@@ -71,8 +71,7 @@
 			const user: UserInterface | null = this.userService.getUser();
 			console.log(user);
 			if (user !== null) {
-				// this.addUser(user);
-				this.$store.commit('addUser', user);
+				this.addUser(user);
 				this.$router.push({ name: 'dashboard' });
 			}
 		}
