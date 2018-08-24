@@ -33,6 +33,11 @@ class UserService {
         return true;
     }
 
+    public logUserOut(): void {
+        this.cookieService.deleteCookie(userCookie);
+        store.commit('addUser', {});
+    }
+
     private validateCookie(cookie: string): boolean {
         return true;
     }

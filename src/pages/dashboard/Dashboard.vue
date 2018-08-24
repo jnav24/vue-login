@@ -1,11 +1,32 @@
 <template>
 	<div class="dashboard">
-		<v-toolbar color="primary">
-			<div id="nav">
+		<v-toolbar dark>
+			<v-toolbar-title>
+				Logo here
+			</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<v-toolbar-items>
 				<router-link :to="{ name: 'dashboard' }">Home</router-link> |
 				<router-link :to="{ name: 'profile' }">Profile</router-link>
-			</div>
+			</v-toolbar-items>
+			<v-spacer></v-spacer>
+
+			<v-menu bottom left offset-y>
+				<v-btn slot="activator" dark icon>
+					<v-icon>account_circle</v-icon>
+				</v-btn>
+
+				<v-list>
+					<v-list-tile @click="logout()">
+						<v-list-tile-title>Logout</v-list-tile-title>
+					</v-list-tile>
+				</v-list>
+			</v-menu>
 		</v-toolbar>
+
+		<v-system-bar color="primary">
+			Dashboard
+		</v-system-bar>
 
 		Dashboard works... {{ user.email }}
 
@@ -24,15 +45,20 @@
 		'beforeRouteEnter',
 	]);
 
+	const userService = new UserService();
+
 	@Component({})
 	class Dashboard extends Vue {
 		@Getter('user') public user: any;
 		@Mutation public addUser: any;
 
+		public logout() {
+			userService.logUserOut();
+			this.$router.push({ name: 'login' });
+		}
+
 		public beforeRouteEnter(to: Route, from: Route, next: any) {
 			next((vm: any) => {
-				const userService = new UserService();
-
 				if (!userService.isLoggedIn(vm.$store.getters.user)) {
 					vm.$router.push({ name: 'login' });
 				}
