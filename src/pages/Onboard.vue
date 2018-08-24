@@ -17,7 +17,7 @@
 	@import './../assets/sass/imports';
 
 	.onboard {
-		background: #eee;
+		background: #EEE;
 		height: 100%;
 		left: 0;
 		padding-top: 15%;

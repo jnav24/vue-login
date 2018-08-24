@@ -5,7 +5,7 @@ import colors from 'vuetify/es5/util/colors'
 
 Vue.use(Vuetify, {
     theme: {
-        primary: colors.orange.base,
+        primary: colors.blueGrey.darken4,
         secondary: colors.grey.darken1,
         accent: colors.indigo.base
     }

@@ -1,14 +1,10 @@
 <template>
 	<div class="dashboard">
-		<v-toolbar dark>
+		<v-toolbar class="toolbar">
 			<v-toolbar-title>
-				Logo here
+				<img src="@/assets/logo.svg" alt="" style="width: 13em">
 			</v-toolbar-title>
-			<v-spacer></v-spacer>
-			<v-toolbar-items>
-				<router-link :to="{ name: 'dashboard' }">Home</router-link> |
-				<router-link :to="{ name: 'profile' }">Profile</router-link>
-			</v-toolbar-items>
+
 			<v-spacer></v-spacer>
 
 			<v-menu bottom left offset-y>
@@ -24,9 +20,14 @@
 			</v-menu>
 		</v-toolbar>
 
-		<v-system-bar color="primary">
-			Dashboard
-		</v-system-bar>
+		<v-toolbar style="background: #fff">
+			<v-spacer></v-spacer>
+			<v-toolbar-items>
+				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'dashboard' }" active-class="active" exact>Dashboard</router-link>
+				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'profile' }" active-class="active">Profile</router-link>
+			</v-toolbar-items>
+			<v-spacer></v-spacer>
+		</v-toolbar>
 
 		Dashboard works... {{ user.email }}
 
@@ -68,3 +69,16 @@
 
 	export default Dashboard;
 </script>
+
+<style lang="scss" scoped>
+	@import './../../assets/sass/imports';
+
+	.toolbar {
+		background: map-get($colors, primary);
+	}
+
+	.active {
+		background: rgba(map-get($colors, primary), 0.25);
+		color: #fff;
+	}
+</style>
