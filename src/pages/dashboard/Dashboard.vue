@@ -23,7 +23,7 @@
 		<v-toolbar style="background: #fff">
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
-				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'dashboard' }" active-class="active" exact>Dashboard</router-link>
+				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'main' }" active-class="active" exact>Dashboard</router-link>
 				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'profile' }" active-class="active">Profile</router-link>
 			</v-toolbar-items>
 			<v-spacer></v-spacer>
@@ -31,7 +31,11 @@
 
 		Dashboard works... {{ user.email }}
 
-		<router-view></router-view>
+		<transition name="dashboard-transition"
+					enter-active-class="animated fadeInRight"
+					leave-active-class="animated fadeOutLeft">
+			<router-view></router-view>
+		</transition>
 	</div>
 </template>
 
@@ -72,6 +76,11 @@
 
 <style lang="scss" scoped>
 	@import './../../assets/sass/imports';
+
+	.page {
+		position: absolute;
+		width: inherit;
+	}
 
 	.toolbar {
 		background: map-get($colors, primary);

@@ -1,6 +1,11 @@
 <template>
-	<div class="dashboard--profile">
-		Profile works... {{ user.email }}
+	<div class="dashboard--profile page">
+		<v-card width="1000" height="500">
+			<v-card-title>
+				Profile page... works!
+				{{ user.email }}
+			</v-card-title>
+		</v-card>
 	</div>
 </template>
 

@@ -15,6 +15,7 @@ class UserService {
         };
     }
 
+    // Since this service has access to the store, maybe delete the param here
     public isLoggedIn(user: UserInterface | null = null): boolean {
         if (user == null || !user.hasOwnProperty('email')) {
             const cookie = this.cookieService.getCookie(userCookie);

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Dashboard from './pages/dashboard/Dashboard.vue';
+import Main from './pages/dashboard/Main.vue';
 import UserService from '@/services/user.service';
 
 Vue.use(Router);
@@ -37,6 +38,11 @@ const router = new Router({
             name: 'dashboard',
             component: Dashboard,
             children: [
+                {
+                    path: '',
+                    name: 'main',
+                    component: Main,
+                },
                 {
                     path: 'profile',
                     name: 'profile',
