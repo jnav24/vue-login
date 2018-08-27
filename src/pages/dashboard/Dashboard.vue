@@ -23,8 +23,15 @@
 		<v-toolbar style="background: #fff">
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
-				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'main' }" active-class="active" exact>Dashboard</router-link>
-				<router-link tag="v-btn" class="v-btn--flat" :to="{ name: 'profile' }" active-class="active">Profile</router-link>
+				<router-link tag="v-btn"
+							 class="v-btn--flat"
+							 :to="{ name: 'dashboard' }"
+							 active-class="active"
+							 exact>Dashboard</router-link>
+				<router-link tag="v-btn"
+							 class="v-btn--flat"
+							 :to="{ name: 'profile' }"
+							 active-class="active">Profile</router-link>
 			</v-toolbar-items>
 			<v-spacer></v-spacer>
 		</v-toolbar>

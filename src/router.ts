@@ -35,12 +35,11 @@ const router = new Router({
         },
         {
             path: '/dashboard',
-            name: 'dashboard',
             component: Dashboard,
             children: [
                 {
                     path: '',
-                    name: 'main',
+                    name: 'dashboard',
                     component: Main,
                 },
                 {

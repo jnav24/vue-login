@@ -1,8 +1,8 @@
 <template>
 	<div class="login">
 		<router-link to="/dashboard">Test</router-link>
-		<v-layout>
-			<v-flex xs12 sm6 offset-sm3>
+		<v-layout justify-center>
+			<v-flex xs12 sm6 lg5 xl3>
 				<v-form v-model="loginValid">
 					<v-card>
 						<v-card-title class="header">Login</v-card-title>
