@@ -1,0 +1,41 @@
+@import '../../../../assets/sass/imports';
+
+.main-nav-mobile {
+	.v-navigation-drawer {
+		padding-top: $menuMobileHeight;
+	}
+
+	.v-list {
+		padding: 0;
+
+		&__group{
+			.v-list__tile {
+				padding: 0 16px;
+
+				&:hover {
+					background: darken(map-get($colors, lite_grey), 10%);
+				}
+			}
+		}
+
+		&__tile {
+			padding: 0;
+
+			&__content, &__title {
+				height: auto;
+				overflow: visible;
+			}
+		}
+	}
+
+	a {
+		display: block;
+		font-size: 16px;
+		padding: 8px 0 8px 16px;
+		text-decoration: none;
+
+		&:hover {
+			background: darken(map-get($colors, lite_grey), 10%);
+		}
+	}
+}

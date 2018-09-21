@@ -1,0 +1,29 @@
+@import './../../assets/sass/imports';
+
+.bg-color {
+	background: map-get($colors, lite_grey);
+}
+
+.page {
+	position: absolute;
+	width: inherit;
+}
+
+.onboard {
+	height: 100%;
+	left: 0;
+	padding-top: 10vh;
+	position: absolute;
+	top: 0;
+	width: 100%;
+
+	&--footer {
+		color: darken(map-get($colors, mid_grey), 20%);
+		font-size: 13px;
+	}
+}
+
+.logo {
+	margin-bottom: 30px;
+	width: 7em;
+}

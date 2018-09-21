@@ -1,0 +1,8 @@
+.header {
+	&__h1 {
+		color: map-get($colors, secondary);
+		font-weight: 300;
+		font-size: 42px;
+		margin-bottom: 25px;
+	}
+}

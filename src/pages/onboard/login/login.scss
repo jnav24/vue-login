@@ -1,0 +1,29 @@
+@import '../../../assets/sass/imports';
+
+.login {
+	.header {
+		font-size: 28px;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.login-details {
+		padding: 10px 10px 5px;
+
+		@include breakpoint(xs) {
+			flex-direction: column;
+
+			p {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.v-text-field .v-label {
+		font-size: 99px;
+
+		@include breakpoint(xl) {
+			font-size: 9px !important;
+		}
+	}
+}

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Dashboard from './pages/dashboard/Dashboard.vue';
-import Main from './pages/dashboard/Main.vue';
+import DashboardHome from './pages/dashboard/home/Home.vue';
 import UserService from '@/services/user.service';
 
 Vue.use(Router);
@@ -24,12 +24,17 @@ const router = new Router({
         {
             path: '/login',
             name: 'onboard',
-            component: () => import('@/pages/Onboard.vue'),
+            component: () => import('@/pages/onboard/Onboard.vue'),
             children: [
                 {
                     path: '',
                     name: 'login',
-                    component: () => import('@/pages/Login.vue'),
+                    component: () => import('@/pages/onboard/login/Login.vue'),
+                },
+                {
+                    path: '/register',
+                    name: 'register',
+                    component: () => import('@/pages/onboard/register/Register.vue'),
                 },
             ],
         },
@@ -40,7 +45,7 @@ const router = new Router({
                 {
                     path: '',
                     name: 'dashboard',
-                    component: Main,
+                    component: DashboardHome,
                 },
                 {
                     path: 'profile',
