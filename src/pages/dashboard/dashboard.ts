@@ -23,32 +23,6 @@ class Dashboard extends Vue {
             name: 'Dashboard',
             link: { name: 'dashboard' },
         },
-        {
-            name: 'Messages',
-            link: { name: 'messages' },
-        },
-        {
-            name: 'Manage',
-            link: { name: 'numbers-list' },
-            submenu: [
-                { name: 'Numbers', link: { name: 'numbers-list' }},
-                { name: 'IVRs', link: { name: 'ivrs-list' }},
-                { name: 'Campaigns', link: { name: 'campaigns-list' }},
-                { name: 'Dialogues', link: { name: 'dialogues-list' }},
-            ],
-        },
-        {
-            name: 'Billing',
-            link: { name: 'billing' },
-        },
-        {
-            name: 'Settings',
-            link: { name: 'settings' },
-        },
-        {
-            name: 'Reporting',
-            link: { name: 'reporting' },
-        },
     ];
     public mobileMenu: boolean = false;
 
