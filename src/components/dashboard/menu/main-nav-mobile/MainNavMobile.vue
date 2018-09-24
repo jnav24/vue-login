@@ -4,19 +4,19 @@
 <template>
 	<div class="main-nav-mobile">
 		<v-navigation-drawer
-			v-model="showMenu"
+			v-model="displayMenu"
 			value="true"
 			absolute
 			temporary>
 			<div v-for="(item, index) in menu" :key="index">
 				<v-list>
-					<v-list-tile v-if="!item.submenu.length">
+					<v-list-tile v-if="!hasSubmenu(item)">
 						<v-list-tile-title>
 							<router-link :to="item.link">{{ item.name }}</router-link>
 						</v-list-tile-title>
 					</v-list-tile>
 
-					<v-list-group v-if="item.submenu.length"value="true">
+					<v-list-group v-if="hasSubmenu(item)" value="true">
 						<v-list-tile slot="activator">
 							<v-list-tile-title>
 								{{ item.name }}

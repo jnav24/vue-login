@@ -2,10 +2,11 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { ResponseInterface } from '@/interfaces/response.interface';
 import ResponseService from '@/services/response.service';
+import {UserInterface} from '@/interfaces/user.interface';
 
 @Component
 class Login extends Vue {
-    @State((state: any) => state.User.user) public userState: any;
+    @State((state: any) => state.User.user) public userState: UserInterface;
     @Action public logUserIn: any;
     public errorDisplay: boolean = false;
     public errorMsg: string = '';

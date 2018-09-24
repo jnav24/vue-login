@@ -57,6 +57,10 @@ class Dashboard extends Vue {
         this.$router.push({ name: 'login' });
     }
 
+    public updateMenu(menu: boolean) {
+        this.mobileMenu = menu;
+    }
+
     public beforeRouteEnter(to: Route, from: Route, next: any) {
         next((vm: any) => {
             console.log('component');

@@ -3,7 +3,7 @@
 
 <template>
 	<div class="onboard bg-color">
-		<img src="@/assets/logo.png" alt="LiveDialer" class="logo">
+		<img src="@/assets/logo.png" alt="Logo" class="logo">
 
 		<transition name="onboard-transition"
 					enter-active-class="animated fadeInUp"

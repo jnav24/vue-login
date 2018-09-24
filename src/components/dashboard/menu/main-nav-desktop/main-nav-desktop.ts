@@ -5,6 +5,10 @@ import {MenuInterface} from '@/interfaces/menu.interface';
 class MainNavDesktop extends Vue {
     @Prop()
     public menu: MenuInterface[];
+
+    public hasSubmenu(item: MenuInterface): boolean | number {
+        return typeof item.submenu !== 'undefined' && item.submenu.length;
+    }
 }
 
 export default MainNavDesktop;

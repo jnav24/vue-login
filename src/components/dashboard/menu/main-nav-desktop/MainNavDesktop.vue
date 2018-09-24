@@ -18,7 +18,7 @@
 					{{ item.name }}
 				</router-link>
 
-				<v-list v-if="item.submenu.length" class="submenu">
+				<v-list v-if="hasSubmenu(item)" class="submenu">
 					<v-list-tile
 						v-for="(sub, int) in item.submenu"
 						:key="int">

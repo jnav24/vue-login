@@ -3,7 +3,7 @@
 
 <template>
 	<div class="dashboard">
-		<MainNavMobile :menu="menu" :show-menu="mobileMenu"></MainNavMobile>
+		<MainNavMobile :menu="menu" :show-menu="mobileMenu" @updateMenu="updateMenu($event)"></MainNavMobile>
 
 		<v-toolbar class="toolbar">
 			<v-btn
@@ -15,7 +15,7 @@
 
 			<v-toolbar-title>
 				<v-layout align-center>
-					<img src="@/assets/logo.png" alt="LiveDialer" style="width: 1.5em">
+					<img src="@/assets/logo.png" alt="Logo" style="width: 1.5em">
 					<h2 class="logo--text">Logo</h2>
 				</v-layout>
 			</v-toolbar-title>
