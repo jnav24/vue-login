@@ -38,4 +38,37 @@
 			background: darken(map-get($colors, lite_grey), 10%);
 		}
 	}
+
+	&.dark {
+		.v-navigation-drawer {
+			background: map-get($colors, primary);
+			padding-top: 20px;
+		}
+
+		.logo {
+			&--text {
+				color: white;
+				font-size: 20px;
+				font-weight: 300;
+				margin-left: 7px;
+				margin-top: 10px;
+			}
+		}
+
+		a {
+			color: #fff;
+
+			&.active {
+				background: rgba(map-get($colors, secondary), 0.5);
+
+				&:hover {
+					background: rgba(map-get($colors, secondary), 0.6);
+				}
+			}
+
+			&:hover {
+				background: lighten(map-get($colors, primary), 7%);
+			}
+		}
+	}
 }

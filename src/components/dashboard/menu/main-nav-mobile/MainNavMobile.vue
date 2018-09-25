@@ -12,7 +12,7 @@
 				<v-list>
 					<v-list-tile v-if="!hasSubmenu(item)">
 						<v-list-tile-title>
-							<router-link :to="item.link">{{ item.name }}</router-link>
+							<router-link :to="item.link" active-class="active">{{ item.name }}</router-link>
 						</v-list-tile-title>
 					</v-list-tile>
 
