@@ -1,0 +1,10 @@
+$breakpoints: (
+	xs: (min: 320px, max: 599px),
+	sm: (min: 600px, max: 959px),
+	md: (min: 960px, max: 1263px),
+	lg: (min: 1264px, max: 1903px),
+	xl: (min: 1904px, max: 3000px),
+);
+
+$menuDesktopHeight: 64px;
+$menuMobileHeight: 56px;
