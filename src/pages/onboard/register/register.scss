@@ -1,0 +1,29 @@
+@import '../../../assets/sass/imports';
+
+.v-divider {
+	margin: 30px 0;
+}
+
+.header {
+	font-size: 28px;
+	justify-content: center;
+	text-align: center;
+}
+
+.register-details {
+	padding: 10px 10px 5px;
+
+	@include breakpoint(xs) {
+		justify-content: center;
+	}
+}
+
+.onboard {
+	&--flex {
+		.layout {
+			@include breakpoint(xs) {
+				flex-direction: column;
+			}
+		}
+	}
+}

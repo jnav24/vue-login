@@ -1,0 +1,51 @@
+@import '../../../../assets/sass/imports';
+
+.main-nav-desktop {
+	height: $menuDesktopHeight;
+
+	.main-menu {
+		@include mobileOnly() {
+			@include hide;
+		}
+
+		.v-menu {
+			background: map-get($colors, primary);
+
+			.v-btn {
+				color: #fff;
+			}
+
+			.active {
+				background: rgba(map-get($colors, secondary), 0.5);
+				color: #fff;
+			}
+		}
+	}
+}
+
+.submenu {
+	padding: 0;
+
+	.v-list__tile {
+		height: auto;
+		margin: 0;
+		padding: 0;
+	}
+
+	.v-list__tile__title {
+		height: auto;
+	}
+
+	a {
+		cursor: pointer;
+		display: block;
+		height: 48px;
+		min-width: 140px;
+		padding: 13px;
+		text-decoration: none;
+
+		&:hover {
+			background: darken(map-get($colors, lite_grey), 10%);
+		}
+	}
+}

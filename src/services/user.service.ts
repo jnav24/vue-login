@@ -1,30 +1,24 @@
-import store from '@/store/index';
-import {UserInterface} from '@/interfaces/user.interface';
-import CookieService from './cookies.service';
-
-const userCookie = 'user';
+import {env} from '@/env.config';
+import { UserInterface } from '@/interfaces/user.interface';
+import CookieService from '@/services/cookies.service';
 
 class UserService {
-    private cookieService: CookieService = new CookieService();
-
-    public getUser(): UserInterface | null {
-        this.cookieService.setCookie(userCookie, 'aksjdhfkasdf');
-
-        return {
-            email: 'pparker@test.com',
-        };
-    }
-
-    // Since this service has access to the store, maybe delete the param here
+    /**
+     * Checks if user is currently logged in.
+     *
+     * @deprecated this method will be replaced when dialogue_builder is merged
+     * @param {UserInterface | null} user
+     * @returns {boolean}
+     */
     public isLoggedIn(user: UserInterface | null = null): boolean {
-        if (user == null || !user.hasOwnProperty('email')) {
-            const cookie = this.cookieService.getCookie(userCookie);
+        if (user == null || !user.hasOwnProperty('token')) {
+            const cookieService: CookieService = new CookieService();
+            const cookie = cookieService.getCookie(env.cookie.name);
 
-            if (cookie != null && this.validateCookie(cookie)) {
-                store.commit('addUser', {
-                    email: 'page@reload.com',
-                });
-
+            if (cookie != null) {
+                // @TODO:
+                // delete this method
+                // being replaced with the store's mutation
                 return true;
             }
 
@@ -34,13 +28,25 @@ class UserService {
         return true;
     }
 
-    public logUserOut(): void {
-        this.cookieService.deleteCookie(userCookie);
-        store.commit('addUser', {});
-    }
+    /**
+     * This grabs the form data and returns the proper user object
+     *
+     * @param formData
+     * @returns {any}
+     */
+    public setUserDataFromForm(formData: any): any {
+        const data: string[] = Object.keys(formData);
+        const userData: any = {};
 
-    private validateCookie(cookie: string): boolean {
-        return true;
+        for (const i of data) {
+            if (typeof formData[i].value !== 'undefined') {
+                userData[i] = formData[i].value;
+            } else {
+                userData[i] = formData[i];
+            }
+        }
+
+        return userData;
     }
 }
 

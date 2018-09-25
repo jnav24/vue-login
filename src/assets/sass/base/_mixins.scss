@@ -1,0 +1,43 @@
+@mixin breakpoint($size, $onlyCurrentSize: false) {
+	@if $onlyCurrentSize == true {
+		@media screen and (min-width: map-get(map-get($breakpoints, $size), min)) and (max-width: map-get(map-get($breakpoints, $size), max)) {
+			@content;
+		}
+	} @else {
+		@media screen and (max-width: map-get(map-get($breakpoints, $size), max)) {
+			@content;
+		}
+	}
+}
+
+@mixin dashboardHeader() {
+	padding-top: 50px;
+	text-align: left;
+	width: 100%;
+}
+
+@mixin desktopOnly() {
+	@media screen and (min-width: map-get(map-get($breakpoints, md), min)) {
+		@content;
+	}
+}
+
+@mixin font() {
+	font-family: 'Avenir', Helvetica, Arial, sans-serif !important;
+}
+
+@mixin hide() {
+	display: none;
+	visibility: hidden;
+}
+
+@mixin mobileOnly() {
+	@media screen and (min-width: map-get(map-get($breakpoints, xs), min)) and (max-width: map-get(map-get($breakpoints, sm), max)) {
+		@content;
+	}
+}
+
+@mixin show() {
+	display: block;
+	visibility: visible;
+}
