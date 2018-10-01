@@ -23,31 +23,35 @@ const User = {
         user: (state: any) => state.user,
     },
     actions: {
-        // @TODO:
-        // Need to continue working on this when lumen dialogue_builder is merged
-        async isLoggedIn(
-            { commit  }: ActionContext<UserInterface | {}, any>,
-            usr: UserInterface | null = null,
-        ): Promise<any> {
-            console.log('isLoggedIn');
+        async isLoggedIn({ commit, getters }: ActionContext<UserInterface | {}, any>): Promise<ResponseInterface> {
             try {
-                if (user == null || !user.hasOwnProperty('token')) {
+                const userState = getters.user;
+
+                if (userState == null || !userState.hasOwnProperty('token')) {
                     const cookie = cookieService.getCookie(userCookieName);
-                    console.log(cookie);
+
                     if (cookie != null) {
                         const data = {
                             params: {
                                 token: cookie,
                             },
                         };
-                        const response = await axios.get(`${env.api.domain}users`, data);
-                        console.log(response);
-                        return response;
+                        const response = await axios.get(`${env.api.domain}auth/user`, data);
+
+                        if (typeof response.data.data.user !== 'undefined') {
+                            commit('addUser', response.data.data.user);
+                            return responseService.getSuccessResponse();
+                        }
+
+                        commit('logUserOut');
+                        return responseService.getFailedResponse();
                     }
                 }
+
+                return responseService.getSuccessResponse();
             } catch (error) {
-                const err = error.response;
-                console.log(err);
+                commit('logUserOut');
+                return responseService.getFailedResponse();
             }
         },
         async logUserIn({ commit }: ActionContext<UserInterface | {}, any>, userData: any): Promise<ResponseInterface> {

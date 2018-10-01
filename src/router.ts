@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '@/store/index';
 import Home from './views/Home.vue';
 import Dashboard from './pages/dashboard/Dashboard.vue';
 import DashboardHome from './pages/dashboard/home/Home.vue';
-import UserService from '@/services/user.service';
+import {ResponseInterface} from '@/interfaces/response.interface';
 
 Vue.use(Router);
 
@@ -54,13 +55,17 @@ const router = new Router({
                 },
             ],
             beforeEnter: (to, from, next) => {
-                const userService = new UserService();
-
-                if (!userService.isLoggedIn()) {
-                    next('/login');
-                }
-
-                next();
+                store.dispatch('isLoggedIn')
+                    .then((res: ResponseInterface) => {
+                        if (!res.success) {
+                            next('/login');
+                        } else {
+                            next();
+                        }
+                    })
+                    .catch((error: any) => {
+                        next('/login');
+                    });
             },
         },
     ],
