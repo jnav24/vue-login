@@ -13,14 +13,14 @@ class Login extends Vue {
     public loginValid: boolean = false;
     public form = {
         email: {
-            value: 'alan@test.com',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Email is required',
                 (v: string) => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
         },
         password: {
-            value: 'password',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Password is required',
                 (v: string) => v.length >= 8 || '',
