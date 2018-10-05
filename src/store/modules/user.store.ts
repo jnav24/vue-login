@@ -9,7 +9,7 @@ import axios, { AxiosResponse } from 'axios';
 import {env} from '@/env.config';
 import {ActionContext, Module} from 'vuex';
 
-const user: UserInterface | {} = {};
+const user: UserInterface = {} as UserInterface;
 const userCookieName: string = env.cookie.name;
 const cookieService: CookieService = new CookieService();
 const responseService: ResponseService = new ResponseService();
@@ -48,11 +48,11 @@ const User: Module<UserInterface | {}, any> = {
                 return responseService.getFailedResponse();
             }
         },
-        async logUserIn({ commit }: ActionContext<UserInterface | {}, any>, userData: any): Promise<ResponseInterface> {
+        async logUserIn({ commit }: ActionContext<UserInterface | {}, any>, userData: {}): Promise<ResponseInterface> {
             try {
                 const data: UserLoginInterface = userService.setUserDataFromForm(userData);
                 const res: AxiosResponse = await axios.post(`${env.api.domain}auth/login`, data);
-                commit('addUser', res.data.data);
+                commit('addUser', res.data.data.user);
                 cookieService.setCookie(userCookieName, res.data.data.token);
                 return responseService.getSuccessResponse();
             } catch (error) {
