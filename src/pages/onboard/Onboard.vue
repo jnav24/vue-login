@@ -13,7 +13,7 @@
 
 		<v-footer absolute class="bg-color onboard--footer">
 			<v-layout justify-center>
-				&copy; 2018 All Rights Reserved
+				&copy; {{ currentYear }} All Rights Reserved
 			</v-layout>
 		</v-footer>
 	</div>
