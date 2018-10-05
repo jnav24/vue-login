@@ -15,7 +15,7 @@ const cookieService: CookieService = new CookieService();
 const responseService: ResponseService = new ResponseService();
 const userService: UserService = new UserService();
 
-const User = {
+const User: Module<UserInterface | {}, any> = {
     state: {
         user,
     },
