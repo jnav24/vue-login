@@ -19,35 +19,33 @@ const User = {
     state: {
         user,
     },
-    getters: {
-        user: (state: any) => state.user,
-    },
+    getters: {},
     actions: {
-        // @TODO:
-        // Need to continue working on this when lumen dialogue_builder is merged
         async isLoggedIn(
-            { commit  }: ActionContext<UserInterface | {}, any>,
-            usr: UserInterface | null = null,
-        ): Promise<any> {
-            console.log('isLoggedIn');
+            { commit, getters, dispatch }: ActionContext<UserInterface | {}, any>,
+        ): Promise<ResponseInterface> {
             try {
-                if (user == null || !user.hasOwnProperty('token')) {
-                    const cookie = cookieService.getCookie(userCookieName);
-                    console.log(cookie);
+                const userState = getters.user;
+                const cookie = cookieService.getCookie(userCookieName);
+
+                if (userState == null || !userState.hasOwnProperty('token')) {
                     if (cookie != null) {
-                        const data = {
-                            params: {
-                                token: cookie,
-                            },
-                        };
-                        const response = await axios.get(`${env.api.domain}users`, data);
-                        console.log(response);
-                        return response;
+                        const response = await dispatch('authGet', { url: 'auth/user'}, { root: true });
+
+                        if (typeof response.data.data.user !== 'undefined') {
+                            commit('addUser', response.data.data.user);
+                            return responseService.getSuccessResponse();
+                        }
                     }
+
+                    commit('logUserOut');
+                    return responseService.getFailedResponse();
                 }
+
+                return responseService.getSuccessResponse();
             } catch (error) {
-                const err = error.response;
-                console.log(err);
+                commit('logUserOut');
+                return responseService.getFailedResponse();
             }
         },
         async logUserIn({ commit }: ActionContext<UserInterface | {}, any>, userData: any): Promise<ResponseInterface> {
@@ -61,13 +59,14 @@ const User = {
                 const err = error.response;
 
                 if (typeof err !== 'undefined' && responseService.isFailedResponse(err.status)) {
-                    const errMsgs: string[] = Object.keys(err.data);
                     let message: string = '';
 
-                    if (typeof err.data.message !== 'undefined') {
+                    if (typeof err.data.data.email !== 'undefined') {
+                        message = 'Please enter your email';
+                    } else if (typeof err.data.data.password !== 'undefined') {
+                        message = 'Please enter your password';
+                    } else if (typeof err.data.message !== 'undefined') {
                         message = err.data.message;
-                    } else {
-                        message = err.data[errMsgs[0]][0];
                     }
 
                     return responseService.getFailedResponse(message);
@@ -93,13 +92,14 @@ const User = {
                 const err = error.response;
 
                 if (typeof err !== 'undefined' && responseService.isFailedResponse(err.status)) {
-                    const errMsgs: string[] = Object.keys(err.data);
                     let message: string = '';
 
-                    if (typeof err.data.message !== 'undefined') {
+                    if (typeof err.data.data.email !== 'undefined') {
+                        message = 'That email is already taken.';
+                    } else if (typeof err.data.data.name !== 'undefined') {
+                        message = 'That company account already exists.';
+                    } else if (typeof err.data.message !== 'undefined') {
                         message = err.data.message;
-                    } else {
-                        message = err.data[errMsgs[0]][0];
                     }
 
                     return responseService.getFailedResponse(message);
@@ -112,10 +112,6 @@ const User = {
     mutations: {
         addUser(state: any, usr: UserInterface) {
             state.user = usr;
-        },
-        logUserOut(state: any) {
-            state.user = {};
-            cookieService.deleteCookie(userCookieName);
         },
     },
 };

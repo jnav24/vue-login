@@ -11,42 +11,42 @@ class Register extends Vue {
     public registerValid: boolean = false;
     public form: any = {
         first_name: {
-            value: 'Alan',
+            value: '',
             rule: [
                 (v: string) => !!v || 'First name is required',
                 (v: string) => v.length >= 3 || '',
             ],
         },
         last_name: {
-            value: 'Read',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Last name is required',
                 (v: string) => v.length >= 3 || '',
             ],
         },
         phone_number: {
-            value: '3054906431',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Phone number is required',
                 (v: string) => this.validatePhoneNumber() || 'Phone number should be in proper format',
             ],
         },
         email: {
-            value: 'alan+first@test.com',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Email is required',
                 (v: string) => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
         },
         password: {
-            value: 'password',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Password is required',
                 (v: string) => v.length >= 8 || '',
             ],
         },
         confirm_password: {
-            value: 'password',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Confirm password is required',
                 (v: string) => this.checkPassword() || 'Passwords has to match',
@@ -54,13 +54,13 @@ class Register extends Vue {
             ],
         },
         company_name: {
-            value: 'LiveDialer',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Company name is required',
             ],
         },
         address_1: {
-            value: '1101 Brickell Ave',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Address is required',
             ],
@@ -70,19 +70,19 @@ class Register extends Vue {
             rule: [],
         },
         city: {
-            value: 'Miami',
+            value: '',
             rule: [
                 (v: string) => !!v || 'City is required',
             ],
         },
         state: {
-            value: 'Florida',
+            value: '',
             rule: [
                 (v: string) => !!v || 'State is required',
             ],
         },
         postal_code: {
-            value: '33301',
+            value: '',
             rule: [
                 (v: string) => !!v || 'Postal code is required',
             ],
