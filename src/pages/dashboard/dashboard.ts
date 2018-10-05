@@ -1,4 +1,4 @@
-import {  Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import {Route} from 'vue-router';
 import { MenuInterface } from '@/interfaces/menu.interface';
 import MainNavDesktop from '@/components/dashboard/menu/main-nav-desktop/MainNavDesktop.vue';
@@ -20,6 +20,10 @@ class Dashboard extends Vue {
         {
             name: 'Dashboard',
             link: { name: 'dashboard' },
+        },
+        {
+            name: 'Profile',
+            link: { name: 'profile' },
         },
     ];
     public mobileMenu: boolean = false;
