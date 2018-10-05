@@ -7,7 +7,7 @@ import {UserInterface} from '@/interfaces/user.interface';
 @Component
 class Login extends Vue {
     @State((state: any) => state.User.user) public userState: UserInterface;
-    @Action public logUserIn: any;
+    @Action public logUserIn: (obj: {}) => Promise<ResponseInterface>;
     public errorDisplay: boolean = false;
     public errorMsg: string = '';
     public loginValid: boolean = false;

@@ -5,7 +5,7 @@ import ResponseService from '@/services/response.service';
 
 @Component
 class Register extends Vue {
-    @Action public registerUser: any;
+    @Action public registerUser: (obj: any) => Promise<ResponseInterface>;
     public errorDisplay: boolean = false;
     public errorMsg: string = '';
     public registerValid: boolean = false;
