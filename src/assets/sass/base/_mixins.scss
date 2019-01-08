@@ -16,6 +16,18 @@
 	width: 100%;
 }
 
+@mixin dashboardPage() {
+	.page {
+		position: absolute;
+		width: inherit;
+
+		&-sub {
+			position: absolute;
+			width: 100%;
+		}
+	}
+}
+
 @mixin desktopOnly() {
 	@media screen and (min-width: map-get(map-get($breakpoints, md), min)) {
 		@content;

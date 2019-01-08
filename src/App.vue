@@ -7,8 +7,6 @@
 </template>
 
 <style lang="scss">
-	@import './assets/sass/imports';
-
 	.v-toolbar {
 		position: relative;
 		z-index: 10;

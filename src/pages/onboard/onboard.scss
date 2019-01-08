@@ -1,12 +1,5 @@
-@import './../../assets/sass/imports';
-
 .bg-color {
 	background: map-get($colors, lite_grey);
-}
-
-.page {
-	position: absolute;
-	width: inherit;
 }
 
 .onboard {

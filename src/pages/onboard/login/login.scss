@@ -1,6 +1,6 @@
-@import '../../../assets/sass/imports';
-
 .login {
+	@include dashboardPage;
+
 	.header {
 		font-size: 28px;
 		justify-content: center;
