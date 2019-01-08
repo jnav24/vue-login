@@ -21,7 +21,7 @@
 								<v-flex xs12 sm5 md5 lg5>
 									<v-text-field
 										v-model="form.first_name.value"
-										:rules="form.first_name.rule"
+										:rules="form.first_name.rules"
 										label="First Name"
 										required></v-text-field>
 								</v-flex>
@@ -31,7 +31,7 @@
 								<v-flex xs12 sm6 md6 lg6>
 									<v-text-field
 										v-model="form.last_name.value"
-										:rules="form.last_name.rule"
+										:rules="form.last_name.rules"
 										label="Last Name"
 										required></v-text-field>
 								</v-flex>
@@ -41,7 +41,7 @@
 								<v-flex xs12 sm5 md5 lg5>
 									<v-text-field
 										v-model="phoneNumberFormat"
-										:rules="form.phone_number.rule"
+										:rules="form.phone_number.rules"
 										label="Phone Number (Numbers only)"
 										required></v-text-field>
 								</v-flex>
@@ -51,7 +51,7 @@
 								<v-flex xs12 sm6 md6 lg6>
 									<v-text-field
 										v-model="form.email.value"
-										:rules="form.email.rule"
+										:rules="form.email.rules"
 										label="Email"
 										required></v-text-field>
 								</v-flex>
@@ -61,7 +61,7 @@
 								<v-flex xs12 sm5 md5 lg5>
 									<v-text-field
 										v-model="form.password.value"
-										:rules="form.password.rule"
+										:rules="form.password.rules"
 										label="Password"
 										type="password"
 										required></v-text-field>
@@ -72,7 +72,7 @@
 								<v-flex xs12 sm6 md6 lg6>
 									<v-text-field
 										v-model="form.confirm_password.value"
-										:rules="form.confirm_password.rule"
+										:rules="form.confirm_password.rules"
 										label="Confirm Password"
 										type="password"
 										required></v-text-field>
@@ -83,7 +83,7 @@
 
 							<v-text-field
 								v-model="form.company_name.value"
-								:rules="form.company_name.rule"
+								:rules="form.company_name.rules"
 								label="Company"
 								required></v-text-field>
 
@@ -91,7 +91,7 @@
 								<v-flex xs12 sm9 md9 lg9>
 									<v-text-field
 										v-model="form.address_1.value"
-										:rules="form.address_1.rule"
+										:rules="form.address_1.rules"
 										label="Address"
 										required></v-text-field>
 								</v-flex>
@@ -108,7 +108,7 @@
 								<v-flex xs12 sm5 md5 lg4>
 									<v-text-field
 										v-model="form.city.value"
-										:rules="form.city.rule"
+										:rules="form.city.rules"
 										label="City"
 										required></v-text-field>
 								</v-flex>
@@ -118,7 +118,7 @@
 								<v-flex xs12 sm3 md3 lg3>
 									<v-select
 										v-model="form.state.value"
-										:rules="form.state.rule"
+										:rules="form.state.rules"
 										:items="states"
 										label="State"
 										required></v-select>
@@ -129,7 +129,7 @@
 								<v-flex xs12 sm3 md3 lg2>
 									<v-text-field
 										v-model="form.postal_code.value"
-										:rules="form.postal_code.rule"
+										:rules="form.postal_code.rules"
 										label="Postal Code"
 										required></v-text-field>
 								</v-flex>

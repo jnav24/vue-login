@@ -20,13 +20,13 @@
 							<v-text-field
 								prepend-icon="person"
 								v-model="form.email.value"
-								:rules="form.email.rule"
+								:rules="form.email.rules"
 								label="Email"
 								required></v-text-field>
 							<v-text-field
 								prepend-icon="lock"
 								v-model="form.password.value"
-								:rules="form.password.rule"
+								:rules="form.password.rules"
 								label="Password"
 								type="password"
 								required></v-text-field>

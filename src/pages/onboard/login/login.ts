@@ -4,6 +4,7 @@ import { ResponseInterface } from '@/interfaces/response.interface';
 import ResponseService from '@/services/response.service';
 import {UserInterface} from '@/interfaces/user.interface';
 import { responseService } from '@/module';
+import {FormInterface} from '@/interfaces/form.interface';
 
 @Component
 class Login extends Vue {
@@ -12,19 +13,19 @@ class Login extends Vue {
     public errorDisplay: boolean = false;
     public errorMsg: string = '';
     public loginValid: boolean = false;
-    public form = {
+    public form: FormInterface = {
         email: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Email is required',
-                (v: string) => /.+@.+/.test(v) || 'E-mail must be valid',
+            rules: [
+                (v: any) => !!v || 'Email is required',
+                (v: any) => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
         },
         password: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Password is required',
-                (v: string) => v.length >= 8 || '',
+            rules: [
+                (v: any) => !!v || 'Password is required',
+                (v: any) => v.length >= 8 || '',
             ],
         },
     };

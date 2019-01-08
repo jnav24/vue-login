@@ -3,6 +3,7 @@ import { Action } from 'vuex-class';
 import {ResponseInterface} from '@/interfaces/response.interface';
 import ResponseService from '@/services/response.service';
 import { responseService } from '@/module';
+import {FormInterface} from '@/interfaces/form.interface';
 
 @Component
 class Register extends Vue {
@@ -10,82 +11,82 @@ class Register extends Vue {
     public errorDisplay: boolean = false;
     public errorMsg: string = '';
     public registerValid: boolean = false;
-    public form: any = {
+    public form: FormInterface = {
         first_name: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'First name is required',
-                (v: string) => v.length >= 3 || '',
+            rules: [
+                (v: any) => !!v || 'First name is required',
+                (v: any) => v.length >= 3 || '',
             ],
         },
         last_name: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Last name is required',
-                (v: string) => v.length >= 3 || '',
+            rules: [
+                (v: any) => !!v || 'Last name is required',
+                (v: any) => v.length >= 3 || '',
             ],
         },
         phone_number: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Phone number is required',
-                (v: string) => this.validatePhoneNumber() || 'Phone number should be in proper format',
+            rules: [
+                (v: any) => !!v || 'Phone number is required',
+                (v: any) => this.validatePhoneNumber() || 'Phone number should be in proper format',
             ],
         },
         email: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Email is required',
-                (v: string) => /.+@.+/.test(v) || 'E-mail must be valid',
+            rules: [
+                (v: any) => !!v || 'Email is required',
+                (v: any) => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
         },
         password: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Password is required',
-                (v: string) => v.length >= 8 || '',
+            rules: [
+                (v: any) => !!v || 'Password is required',
+                (v: any) => v.length >= 8 || '',
             ],
         },
         confirm_password: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Confirm password is required',
-                (v: string) => this.checkPassword() || 'Passwords has to match',
-                (v: string) => v.length >= 8 || '',
+            rules: [
+                (v: any) => !!v || 'Confirm password is required',
+                (v: any) => this.checkPassword() || 'Passwords has to match',
+                (v: any) => v.length >= 8 || '',
             ],
         },
         company_name: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Company name is required',
+            rules: [
+                (v: any) => !!v || 'Company name is required',
             ],
         },
         address_1: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Address is required',
+            rules: [
+                (v: any) => !!v || 'Address is required',
             ],
         },
         address_2: {
             value: '',
-            rule: [],
+            rules: [],
         },
         city: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'City is required',
+            rules: [
+                (v: any) => !!v || 'City is required',
             ],
         },
         state: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'State is required',
+            rules: [
+                (v: any) => !!v || 'State is required',
             ],
         },
         postal_code: {
             value: '',
-            rule: [
-                (v: string) => !!v || 'Postal code is required',
+            rules: [
+                (v: any) => !!v || 'Postal code is required',
             ],
         },
     };
@@ -108,7 +109,7 @@ class Register extends Vue {
     private responseService: ResponseService = responseService;
 
     public get phoneNumberFormat(): string {
-        return this.form.phone_number.value
+        return this.form.phone_number.value.toString()
             .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
     }
 
