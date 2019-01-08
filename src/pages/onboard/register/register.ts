@@ -1,7 +1,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import {ResponseInterface} from '@/interfaces/response.interface';
-import { responseService } from '@/module';
+import { responseService, globalService } from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
 
 @Component
@@ -89,22 +89,7 @@ class Register extends Vue {
             ],
         },
     };
-    public states = [
-        'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-        'Arkansas', 'California', 'Colorado', 'Connecticut',
-        'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-        'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-        'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-        'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-        'Missouri', 'Montana', 'Nebraska', 'Nevada',
-        'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-        'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-        'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-        'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-        'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
-    ];
+    public states = globalService.getStatesArray();
 
     public get phoneNumberFormat(): string {
         return this.form.phone_number.value.toString()
