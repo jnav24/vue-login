@@ -30,6 +30,12 @@ class Login extends Vue {
     };
     private responseService: ResponseService = responseService;
 
+    constructor() {
+        super();
+        console.log(process.env.NODE_ENV);
+        console.log(process.env.VUE_APP_TOKEN);
+    }
+
     public submit() {
         this.logUserIn(this.form)
             .then((res: ResponseInterface) => {

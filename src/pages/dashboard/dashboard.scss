@@ -4,6 +4,11 @@
 	.page {
 		position: absolute;
 		width: inherit;
+
+		&-sub {
+			position: absolute;
+			width: 100%;
+		}
 	}
 
 	.toolbar {

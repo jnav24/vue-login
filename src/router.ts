@@ -74,10 +74,16 @@ const router = new Router({
                     path: '',
                     name: 'dashboard',
                     component: DashboardHome,
+                    meta: {
+                        middleware: [auth],
+                    },
                 },
                 {
                     path: 'profile',
                     name: 'profile',
+                    meta: {
+                        middleware: [auth],
+                    },
                     component: () => import('@/pages/dashboard/profile/Profile.vue'),
                 },
             ],
