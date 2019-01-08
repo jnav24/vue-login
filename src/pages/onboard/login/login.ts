@@ -4,13 +4,17 @@ import { ResponseInterface } from '@/interfaces/response.interface';
 import {UserInterface} from '@/interfaces/user.interface';
 import { responseService } from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
+import {AlertInterface} from '@/interfaces/alert.interface';
 
 @Component
 class Login extends Vue {
     @State((state: any) => state.User.user) public userState: UserInterface;
     @Action public logUserIn: (obj: {}) => Promise<ResponseInterface>;
-    public errorDisplay: boolean = false;
-    public errorMsg: string = '';
+    public alert: AlertInterface = {
+        type: 'error',
+        msg: '',
+        display: false,
+    };
     public loginValid: boolean = false;
     public form: FormInterface = {
         email: {
@@ -33,19 +37,19 @@ class Login extends Vue {
         this.logUserIn(this.form)
             .then((res: ResponseInterface) => {
                 if (res.success) {
-                    this.errorDisplay = false;
+                    this.alert.display = false;
                     this.$router.push({ name: 'dashboard' });
                     return true;
                 }
 
-                this.errorDisplay = true;
-                this.errorMsg = res.msg;
+                this.alert.display = true;
+                this.alert.msg = res.msg;
                 return false;
             })
             .catch((error: any) => {
                 const response: ResponseInterface = responseService.getFailedResponse();
-                this.errorDisplay = true;
-                this.errorMsg = response.msg;
+                this.alert.display = true;
+                this.alert.msg = response.msg;
             });
     }
 }

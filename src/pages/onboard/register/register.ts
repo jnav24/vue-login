@@ -3,12 +3,16 @@ import { Action } from 'vuex-class';
 import {ResponseInterface} from '@/interfaces/response.interface';
 import {responseService, globalService, validateService} from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
+import {AlertInterface} from '@/interfaces/alert.interface';
 
 @Component
 class Register extends Vue {
     @Action public registerUser: (obj: any) => Promise<ResponseInterface>;
-    public errorDisplay: boolean = false;
-    public errorMsg: string = '';
+    public alert: AlertInterface = {
+        type: 'error',
+        msg: '',
+        display: false,
+    };
     public registerValid: boolean = false;
     public form: FormInterface = {
         first_name: {
@@ -108,19 +112,19 @@ class Register extends Vue {
         this.registerUser(this.form)
             .then((res: ResponseInterface) => {
                 if (res.success) {
-                    this.errorDisplay = false;
+                    this.alert.display = false;
                     this.$router.push({ name: 'dashboard' });
                     return true;
                 }
 
-                this.errorDisplay = true;
-                this.errorMsg = res.msg;
+                this.alert.display = true;
+                this.alert.msg = res.msg;
                 return false;
             })
             .catch((error: any) => {
                 const response: ResponseInterface = responseService.getFailedResponse();
-                this.errorDisplay = true;
-                this.errorMsg = response.msg;
+                this.alert.display = true;
+                this.alert.msg = response.msg;
             });
     }
 

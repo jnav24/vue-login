@@ -4,17 +4,17 @@
 <template>
 	<div class="page forgot-password">
 		<v-layout justify-center>
-			<v-flex xs12 sm10 md6 lg5 xl4>
+			<v-flex xs12 sm10 md6 lg4 xl3>
 				<v-form v-if="!successSubmission" v-model="formValid">
 					<v-card>
 						<v-card-title class="header">Forgot Password</v-card-title>
 						<p>Enter your email and we will send you a link with instructions on resetting your password.</p>
 
 						<v-alert
-							:value="errorDisplay"
+							:value="alert.display"
 							transition="slide-y-transition"
-							type="error">
-							{{ errorMsg }}
+							:type="alert.type">
+							{{ alert.msg }}
 						</v-alert>
 
 						<v-card-text>

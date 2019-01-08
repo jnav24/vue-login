@@ -1,11 +1,15 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { userService } from '@/module';
 import {ResponseInterface} from '@/interfaces/response.interface';
+import {AlertInterface} from '@/interfaces/alert.interface';
 
 @Component
 class ForgotMyPassword extends Vue {
-    public errorDisplay: boolean = false;
-    public errorMsg: string = '';
+    public alert: AlertInterface = {
+        type: 'error',
+        msg: '',
+        display: false,
+    };
     public form = {
         email: {
             value: '',
@@ -24,7 +28,7 @@ class ForgotMyPassword extends Vue {
                 .forgetPassword(this.form.email.value)
                 .then((res: ResponseInterface) => {
                     if (res.success) {
-                        this.errorDisplay = false;
+                        this.alert.display = false;
                         this.successSubmission = true;
                         this.form.email.value = '';
 
@@ -32,13 +36,13 @@ class ForgotMyPassword extends Vue {
                             this.successSubmission = false;
                         }, 10000);
                     } else {
-                        this.errorDisplay = true;
-                        this.errorMsg = res.msg;
+                        this.alert.display = true;
+                        this.alert.msg = res.msg;
                     }
                 })
                 .catch(() => {
-                    this.errorDisplay = true;
-                    this.errorMsg = 'Something unexpected occur. Please try again.';
+                    this.alert.display = true;
+                    this.alert.msg = 'Something unexpected occur. Please try again.';
                 });
         }
     }

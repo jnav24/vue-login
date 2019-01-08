@@ -4,16 +4,16 @@
 <template>
 	<div :class="[$style.page, $style.register]">
 		<v-layout justify-center>
-			<v-flex xs12 sm10 md6 lg5 xl4>
+			<v-flex xs12 sm10 md6 lg4 xl3>
 				<v-form v-model="registerValid">
 					<v-card :class="[$style['onboard--flex']]">
 						<v-card-title :class="[$style.header]">Register</v-card-title>
 
 						<v-alert
-							:value="errorDisplay"
+							:value="alert.display"
 							transition="slide-y-transition"
-							type="error">
-							{{ errorMsg }}
+							:type="alert.type">
+							{{ alert.msg }}
 						</v-alert>
 
 						<v-card-text>
