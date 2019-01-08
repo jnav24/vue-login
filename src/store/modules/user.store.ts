@@ -2,13 +2,13 @@ import {UserInterface} from '@/interfaces/user.interface';
 import {UserLoginInterface} from '@/interfaces/user-login.interface';
 import {UserRegisterInterface} from '@/interfaces/user-register.interface';
 import {ResponseInterface} from '@/interfaces/response.interface';
-import axios, { AxiosResponse } from 'axios';
-import {env} from '@/env.config';
+import { AxiosResponse } from 'axios';
 import {ActionContext, Module} from 'vuex';
 import { cookiesService, responseService, httpService, userService } from '@/module';
+import {UrlInterface} from '@/interfaces/url.interface';
 
 const user: UserInterface = {} as UserInterface;
-const userCookieName: string = env.cookie.name;
+const userCookieName: any = process.env.VUE_APP_TOKEN;
 
 const User: Module<UserInterface | {}, any> = {
     state: {
@@ -16,28 +16,21 @@ const User: Module<UserInterface | {}, any> = {
     },
     getters: {},
     actions: {
-        async isLoggedIn(
-            { commit, getters, dispatch }: ActionContext<UserInterface | {}, any>,
-        ): Promise<ResponseInterface> {
+        async isLoggedIn({ commit }: ActionContext<UserInterface | {}, any>): Promise<ResponseInterface> {
             try {
-                const userState = getters.user;
                 const cookie = cookiesService.getCookie(userCookieName);
 
-                if (userState == null || !userState.hasOwnProperty('token')) {
-                    if (cookie != null) {
-                        const response = await dispatch('authGet', { url: 'auth/user'}, { root: true });
+                if (cookie !== null) {
+                    const response = await httpService.authGet({ url: 'auth/user' });
 
-                        if (typeof response.data.data.user !== 'undefined') {
-                            commit('addUser', response.data.data.user);
-                            return responseService.getSuccessResponse();
-                        }
+                    if (responseService.isSuccessResponse(response.status)) {
+                        commit('addUser', response.data.data.user);
+                        return responseService.getSuccessResponse();
                     }
-
-                    commit('logUserOut');
-                    return responseService.getFailedResponse();
                 }
 
-                return responseService.getSuccessResponse();
+                commit('logUserOut');
+                return responseService.getFailedResponse();
             } catch (error) {
                 commit('logUserOut');
                 return responseService.getFailedResponse();
@@ -45,11 +38,21 @@ const User: Module<UserInterface | {}, any> = {
         },
         async logUserIn({ commit }: ActionContext<UserInterface | {}, any>, userData: {}): Promise<ResponseInterface> {
             try {
-                const data: UserLoginInterface = userService.setUserDataFromForm(userData);
-                const res: AxiosResponse = await axios.post(`${env.api.domain}auth/login`, data);
-                commit('addUser', res.data.data.user);
-                cookiesService.setCookie(userCookieName, res.data.data.token);
-                return responseService.getSuccessResponse();
+                const loginData: UserLoginInterface = userService.setUserDataFromForm(userData);
+                const data: UrlInterface = {
+                    url: 'auth/login',
+                    params: loginData,
+                };
+                const res: AxiosResponse = await httpService.post(data);
+
+                if (responseService.isSuccessResponse(res.status)) {
+                    commit('addUser', res.data.data.user);
+                    cookiesService.setCookie(userCookieName, res.data.data.token);
+                    return responseService.getSuccessResponse();
+                }
+
+                commit('logUserOut');
+                return responseService.getFailedResponse();
             } catch (error) {
                 const err = error.response;
 
@@ -72,14 +75,18 @@ const User: Module<UserInterface | {}, any> = {
         },
         async registerUser(
             { commit, dispatch }: ActionContext<UserInterface | {}, any>,
-            userData: any,
+            userData: {},
         ): Promise<ResponseInterface> {
             try {
-                const data: UserRegisterInterface = userService.setUserDataFromForm(userData);
-                const response: AxiosResponse = await axios.post(`${env.api.domain}register`, data);
+                const registerData: UserRegisterInterface = userService.setUserDataFromForm(userData);
+                const data: UrlInterface = {
+                    url: 'register',
+                    params: registerData,
+                };
+                const response: AxiosResponse = await httpService.post(data);
 
                 if (responseService.isSuccessResponse(response.status)) {
-                    return await dispatch('logUserIn', { email: data.email, password: data.password });
+                    return await dispatch('logUserIn', { email: registerData.email, password: registerData.password });
                 }
 
                 return responseService.getFailedResponse();
