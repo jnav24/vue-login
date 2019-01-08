@@ -4,7 +4,7 @@
 <template>
 	<div :class="[$style.page, $style.login]">
 		<v-layout justify-center>
-			<v-flex xs12 sm10 md6 lg4 xl3>
+			<v-flex xs12 sm10 md6 lg5 xl4>
 				<v-form v-model="loginValid">
 					<v-card>
 						<v-card-title :class="[$style.header]">Login</v-card-title>
@@ -48,7 +48,8 @@
 							Need an account? <router-link :to="{ name: 'register' }">Register</router-link>
 						</p>
 						<v-spacer></v-spacer>
-						<p>Forgot password?</p>
+
+						<p><router-link :to="{ name: 'forgot-password' }">Forgot password?</router-link></p>
 					</v-layout>
 				</v-form>
 			</v-flex>

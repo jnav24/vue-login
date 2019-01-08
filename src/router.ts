@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import Dashboard from './pages/dashboard/Dashboard.vue';
 import DashboardHome from './pages/dashboard/home/Home.vue';
 import {ResponseInterface} from '@/interfaces/response.interface';
+import { userService } from '@/module';
 
 Vue.use(Router);
 
@@ -56,6 +57,36 @@ const router = new Router({
                     path: '/register',
                     name: 'register',
                     component: () => import('@/pages/onboard/register/Register.vue'),
+                },
+                {
+                    path: '/forgot-password',
+                    name: 'forgot-password',
+                    component: () => import('@/pages/onboard/forgot-my-password/ForgotMyPassword.vue'),
+                },
+                {
+                    path: '/account-reset/:token',
+                    name: 'account-reset',
+                    beforeEnter: (to: Route, from: Route, next: any) => {
+                        userService
+                            .validateToken(to.params.token)
+                            .then((res: ResponseInterface) => {
+                                if (res.success) {
+                                    next();
+                                } else {
+                                    next({ name: 'login' });
+                                }
+                            })
+                            .catch(() => {
+                                next({ name: 'login' });
+                            });
+                    },
+                    component: () => import('@/pages/onboard/account-reset/AccountReset.vue'),
+                },
+                {
+                    path: '/account-reset/**',
+                    redirect: {
+                        name: 'login',
+                    },
                 },
             ],
         },

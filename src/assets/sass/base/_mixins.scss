@@ -43,6 +43,15 @@
 	visibility: hidden;
 }
 
+@mixin onboardDetails() {
+	color: darken(map-get($colors, mid_grey), 20%);
+	padding: 10px 10px 5px;
+
+	a {
+		color: map_get($colors, primary);
+	}
+}
+
 @mixin mobileOnly() {
 	@media screen and (min-width: map-get(map-get($breakpoints, xs), min)) and (max-width: map-get(map-get($breakpoints, sm), max)) {
 		@content;

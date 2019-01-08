@@ -1,7 +1,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import {ResponseInterface} from '@/interfaces/response.interface';
-import { responseService, globalService } from '@/module';
+import {responseService, globalService, validateService} from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
 
 @Component
@@ -43,7 +43,11 @@ class Register extends Vue {
             value: '',
             rules: [
                 (v: any) => !!v || 'Password is required',
-                (v: any) => v.length >= 8 || '',
+                (v: any) => validateService.isValidLength(v) || 'Password is not long enough',
+                (v: any) => validateService.isUppercasePresent(v) || 'Password must contain uppercase letters',
+                (v: any) => validateService.isLowercasePresent(v) || 'Password must contain lowercase letters',
+                (v: any) => validateService.isNumberPresent(v) || 'Password must contain numbers',
+                (v: any) => this.checkPassword() || 'Passwords has to match',
             ],
         },
         confirm_password: {
@@ -51,7 +55,7 @@ class Register extends Vue {
             rules: [
                 (v: any) => !!v || 'Confirm password is required',
                 (v: any) => this.checkPassword() || 'Passwords has to match',
-                (v: any) => v.length >= 8 || '',
+                (v: any) => validateService.isValidLength(v) || '',
             ],
         },
         company_name: {

@@ -12,7 +12,7 @@
 	}
 
 	.register-details {
-		padding: 10px 10px 5px;
+		@include onboardDetails();
 
 		@include breakpoint(xs) {
 			justify-content: center;
