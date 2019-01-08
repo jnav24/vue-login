@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import Router, {Route} from 'vue-router';
 import store from '@/store/index';
 import Home from './views/Home.vue';
 import Dashboard from './pages/dashboard/Dashboard.vue';
@@ -7,6 +7,26 @@ import DashboardHome from './pages/dashboard/home/Home.vue';
 import {ResponseInterface} from '@/interfaces/response.interface';
 
 Vue.use(Router);
+
+async function auth({ next }: any): Promise<void> {
+    try {
+        const response: ResponseInterface = await store.dispatch('isLoggedIn');
+
+        if (response.success) {
+            next();
+        } else {
+            next('/login');
+        }
+    } catch (error) {
+        next('/login');
+    }
+}
+
+function initStore() {
+    if (!Object.keys(store.state.User.user).length) {
+        store.dispatch('isLoggedIn');
+    }
+}
 
 const router = new Router({
     mode: 'history',
@@ -42,6 +62,13 @@ const router = new Router({
         {
             path: '/dashboard',
             component: Dashboard,
+            meta: {
+                middleware: [auth],
+            },
+            beforeEnter: (to: Route, from: Route, next: any) => {
+                initStore();
+                next();
+            },
             children: [
                 {
                     path: '',
@@ -54,21 +81,21 @@ const router = new Router({
                     component: () => import('@/pages/dashboard/profile/Profile.vue'),
                 },
             ],
-            beforeEnter: (to, from, next) => {
-                store.dispatch('isLoggedIn')
-                    .then((res: ResponseInterface) => {
-                        if (!res.success) {
-                            next('/login');
-                        } else {
-                            next();
-                        }
-                    })
-                    .catch((error: any) => {
-                        next('/login');
-                    });
-            },
         },
     ],
+});
+
+router.beforeEach((to: Route, from: Route, next: any) => {
+    if (to.meta.hasOwnProperty('middleware')) {
+        const context = {next, to, from};
+        to.meta.middleware.map((mw: any, index: number) => {
+            if (typeof mw === 'function') {
+                mw(context);
+            }
+        });
+    } else {
+        next();
+    }
 });
 
 export default router;
