@@ -1,7 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import {ResponseInterface} from '@/interfaces/response.interface';
-import ResponseService from '@/services/response.service';
 import { responseService } from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
 
@@ -106,7 +105,6 @@ class Register extends Vue {
         'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
         'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
     ];
-    private responseService: ResponseService = responseService;
 
     public get phoneNumberFormat(): string {
         return this.form.phone_number.value.toString()
@@ -131,7 +129,7 @@ class Register extends Vue {
                 return false;
             })
             .catch((error: any) => {
-                const response: ResponseInterface = this.responseService.getFailedResponse();
+                const response: ResponseInterface = responseService.getFailedResponse();
                 this.errorDisplay = true;
                 this.errorMsg = response.msg;
             });

@@ -1,7 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { ResponseInterface } from '@/interfaces/response.interface';
-import ResponseService from '@/services/response.service';
 import {UserInterface} from '@/interfaces/user.interface';
 import { responseService } from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
@@ -29,7 +28,6 @@ class Login extends Vue {
             ],
         },
     };
-    private responseService: ResponseService = responseService;
 
     public submit() {
         this.logUserIn(this.form)
@@ -45,7 +43,7 @@ class Login extends Vue {
                 return false;
             })
             .catch((error: any) => {
-                const response: ResponseInterface = this.responseService.getFailedResponse();
+                const response: ResponseInterface = responseService.getFailedResponse();
                 this.errorDisplay = true;
                 this.errorMsg = response.msg;
             });
