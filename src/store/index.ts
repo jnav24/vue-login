@@ -3,18 +3,17 @@ import {env} from '@/env.config';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import User from './modules/user.store';
-import CookieService from '@/services/cookies.service';
 import {UrlInterface} from '@/interfaces/url.interface';
+import { cookiesService } from '@/module';
 
 Vue.use(Vuex);
 
 const userCookieName: string = env.cookie.name;
-const cookieService: CookieService = new CookieService();
 
 export default new Vuex.Store({
     actions: {
         async authGet({ commit }: any, data: UrlInterface ): Promise<AxiosResponse> {
-            const cookie = cookieService.getCookie(userCookieName);
+            const cookie = cookiesService.getCookie(userCookieName);
             return await axios({
                 method: 'GET',
                 url: env.api.domain + data.url,
@@ -37,7 +36,7 @@ export default new Vuex.Store({
                 }
             }
 
-            cookieService.deleteCookie(userCookieName);
+            cookiesService.deleteCookie(userCookieName);
         },
     },
     modules: {

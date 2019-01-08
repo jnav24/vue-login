@@ -3,6 +3,7 @@ import { State, Action } from 'vuex-class';
 import { ResponseInterface } from '@/interfaces/response.interface';
 import ResponseService from '@/services/response.service';
 import {UserInterface} from '@/interfaces/user.interface';
+import { responseService } from '@/module';
 
 @Component
 class Login extends Vue {
@@ -27,6 +28,7 @@ class Login extends Vue {
             ],
         },
     };
+    private responseService: ResponseService = responseService;
 
     public submit() {
         this.logUserIn(this.form)
@@ -42,8 +44,7 @@ class Login extends Vue {
                 return false;
             })
             .catch((error: any) => {
-                const responseService: ResponseService = new ResponseService();
-                const response: ResponseInterface = responseService.getFailedResponse();
+                const response: ResponseInterface = this.responseService.getFailedResponse();
                 this.errorDisplay = true;
                 this.errorMsg = response.msg;
             });

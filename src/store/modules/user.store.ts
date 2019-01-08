@@ -2,18 +2,13 @@ import {UserInterface} from '@/interfaces/user.interface';
 import {UserLoginInterface} from '@/interfaces/user-login.interface';
 import {UserRegisterInterface} from '@/interfaces/user-register.interface';
 import {ResponseInterface} from '@/interfaces/response.interface';
-import CookieService from '@/services/cookies.service';
-import ResponseService from '@/services/response.service';
-import UserService from '@/services/user.service';
 import axios, { AxiosResponse } from 'axios';
 import {env} from '@/env.config';
 import {ActionContext, Module} from 'vuex';
+import { cookiesService, responseService, httpService, userService } from '@/module';
 
 const user: UserInterface = {} as UserInterface;
 const userCookieName: string = env.cookie.name;
-const cookieService: CookieService = new CookieService();
-const responseService: ResponseService = new ResponseService();
-const userService: UserService = new UserService();
 
 const User: Module<UserInterface | {}, any> = {
     state: {
@@ -26,7 +21,7 @@ const User: Module<UserInterface | {}, any> = {
         ): Promise<ResponseInterface> {
             try {
                 const userState = getters.user;
-                const cookie = cookieService.getCookie(userCookieName);
+                const cookie = cookiesService.getCookie(userCookieName);
 
                 if (userState == null || !userState.hasOwnProperty('token')) {
                     if (cookie != null) {
@@ -53,7 +48,7 @@ const User: Module<UserInterface | {}, any> = {
                 const data: UserLoginInterface = userService.setUserDataFromForm(userData);
                 const res: AxiosResponse = await axios.post(`${env.api.domain}auth/login`, data);
                 commit('addUser', res.data.data.user);
-                cookieService.setCookie(userCookieName, res.data.data.token);
+                cookiesService.setCookie(userCookieName, res.data.data.token);
                 return responseService.getSuccessResponse();
             } catch (error) {
                 const err = error.response;
