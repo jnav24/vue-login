@@ -2,9 +2,9 @@
 	margin: 30px 0;
 }
 
-.register {
-	@include dashboardPage;
+@include dashboardPage;
 
+.register {
 	.header {
 		font-size: 28px;
 		justify-content: center;

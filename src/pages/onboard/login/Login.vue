@@ -1,13 +1,13 @@
 <script src="./login.ts" lang="ts"></script>
-<style src="./login.scss" lang="scss" scoped></style>
+<style src="./login.scss" lang="scss" module></style>
 
 <template>
-	<div class="page login">
+	<div :class="[$style.page, $style.login]">
 		<v-layout justify-center>
 			<v-flex xs12 sm10 md6 lg4 xl3>
 				<v-form v-model="loginValid">
 					<v-card>
-						<v-card-title class="header">Login</v-card-title>
+						<v-card-title :class="[$style.header]">Login</v-card-title>
 
 						<v-alert
 							:value="errorDisplay"
@@ -43,7 +43,7 @@
 						</v-card-actions>
 					</v-card>
 
-					<v-layout class="login-details">
+					<v-layout :class="[$style['login-details']]">
 						<p>
 							Need an account? <router-link :to="{ name: 'register' }">Register</router-link>
 						</p>

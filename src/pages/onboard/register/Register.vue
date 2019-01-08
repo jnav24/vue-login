@@ -1,13 +1,13 @@
 <script src="./register.ts" lang="ts"></script>
-<style src="./register.scss" lang="scss" scoped></style>
+<style src="./register.scss" lang="scss" module></style>
 
 <template>
-	<div class="page register">
+	<div :class="[$style.page, $style.register]">
 		<v-layout justify-center>
 			<v-flex xs12 sm10 md6 lg4 xl3>
 				<v-form v-model="registerValid">
-					<v-card class="onboard--flex">
-						<v-card-title class="header">Register</v-card-title>
+					<v-card :class="[$style['onboard--flex']]">
+						<v-card-title :class="[$style.header]">Register</v-card-title>
 
 						<v-alert
 							:value="errorDisplay"
@@ -148,7 +148,7 @@
 					</v-card>
 				</v-form>
 
-				<v-layout class="register-details">
+				<v-layout :class="[$style['register-details']]">
 					<p>
 						Already have an account? <router-link :to="{ name: 'login' }">Login</router-link>
 					</p>
