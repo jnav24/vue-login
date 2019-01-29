@@ -1,6 +1,6 @@
 class ValidateService {
-    public isValidLength(value: string): boolean {
-        return value.length >= 8;
+    public isValidLength(value: string | any[]= '', len: number = 8): boolean {
+        return value.length >= len;
     }
 
     public isUppercasePresent(value: string): boolean {
@@ -21,6 +21,23 @@ class ValidateService {
 
     public isPostalCode(value: string): boolean {
         return /^\d{5}$/.test(value);
+    }
+
+    public isPhoneNumber(phone: string): boolean {
+        if (typeof phone !== 'undefined' && phone.trim() !== '') {
+            const num = phone.replace('+1', '');
+            return /^\d{10}$/.test(num);
+        }
+
+        return false;
+    }
+
+    public isEmail(email: string): boolean {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    public isValueInObject(val: any, list: any[], label: string): boolean {
+        return !list.filter((item: any) => item[label] === val).length;
     }
 }
 
