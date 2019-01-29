@@ -9,6 +9,20 @@ import { userService } from '@/module';
 
 Vue.use(Router);
 
+async function autoLogIn({ next }: any): Promise<void> {
+    try {
+        const response: ResponseInterface = await store.dispatch('isLoggedIn');
+
+        if (response.success) {
+            next({ name: 'call-list' });
+        }
+
+        next();
+    } catch (error) {
+        next('/login');
+    }
+}
+
 async function auth({ next }: any): Promise<void> {
     try {
         const response: ResponseInterface = await store.dispatch('isLoggedIn');
@@ -51,6 +65,9 @@ const router = new Router({
                 {
                     path: '',
                     name: 'login',
+                    meta: {
+                        middleware: [autoLogIn],
+                    },
                     component: () => import('@/pages/onboard/login/Login.vue'),
                 },
                 {
