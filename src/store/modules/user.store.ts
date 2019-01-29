@@ -115,6 +115,9 @@ const mutations: MutationTree<UserStateInterface> = {
     addUser(state, usr: UserInterface) {
         state.user = usr;
     },
+    resetUserState(state) {
+        state.user = {} as UserInterface;
+    },
 };
 
 const User: Module<UserStateInterface, RootStateInterface> = {
