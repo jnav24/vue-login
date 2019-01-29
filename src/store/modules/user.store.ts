@@ -16,7 +16,7 @@ const currentState: UserStateInterface = {
 };
 
 const actions: ActionTree<UserStateInterface, RootStateInterface> = {
-    async isLoggedIn({ commit }): Promise<ResponseInterface> {
+    async isLoggedIn({ commit, dispatch }): Promise<ResponseInterface> {
         try {
             const cookie = cookiesService.getCookie(userCookieName);
 
@@ -29,14 +29,14 @@ const actions: ActionTree<UserStateInterface, RootStateInterface> = {
                 }
             }
 
-            commit('logUserOut');
+            dispatch('logUserOut');
             return responseService.getFailedResponse();
         } catch (error) {
-            commit('logUserOut');
+            dispatch('logUserOut');
             return responseService.getFailedResponse();
         }
     },
-    async logUserIn({ commit }, userData: {}): Promise<ResponseInterface> {
+    async logUserIn({ commit, dispatch }, userData: {}): Promise<ResponseInterface> {
         try {
             const loginData: UserLoginInterface = userService.setUserDataFromForm(userData);
             const data: UrlInterface = {
@@ -51,7 +51,7 @@ const actions: ActionTree<UserStateInterface, RootStateInterface> = {
                 return responseService.getSuccessResponse();
             }
 
-            commit('logUserOut');
+            dispatch('logUserOut');
             return responseService.getFailedResponse();
         } catch (error) {
             const err = error.response;

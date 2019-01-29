@@ -29,8 +29,13 @@ class Dashboard extends Vue {
     public mobileMenu: boolean = false;
 
     public logout() {
-        this.$store.commit('logUserOut');
-        this.$router.push({ name: 'login' });
+        this.$store
+            .dispatch('logUserOut')
+            .then((res: { success: boolean }) => {
+                if (res.success) {
+                    this.$router.push({ name: 'login' });
+                }
+            });
     }
 
     public updateMenu(menu: boolean) {
