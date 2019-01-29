@@ -2,7 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { ResponseInterface } from '@/interfaces/response.interface';
 import {UserInterface} from '@/interfaces/user.interface';
-import { responseService } from '@/module';
+import {responseService, validateService} from '@/module';
 import {FormInterface} from '@/interfaces/form.interface';
 import {AlertInterface} from '@/interfaces/alert.interface';
 
@@ -17,18 +17,18 @@ class Login extends Vue {
     };
     public loginValid: boolean = false;
     public form: FormInterface = {
-        email: {
+        username: {
             value: '',
             rules: [
-                (v: any) => !!v || 'Email is required',
-                (v: any) => /.+@.+/.test(v) || 'E-mail must be valid',
+                (v: any) => !!v || 'Username is required',
+                (v: any) => validateService.isEmail(v) || 'Username must be valid',
             ],
         },
         password: {
             value: '',
             rules: [
                 (v: any) => !!v || 'Password is required',
-                (v: any) => v.length >= 8 || '',
+                (v: any) => validateService.isValidLength(v, 8) || '',
             ],
         },
     };

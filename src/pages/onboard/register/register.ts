@@ -19,14 +19,14 @@ class Register extends Vue {
             value: '',
             rules: [
                 (v: any) => !!v || 'First name is required',
-                (v: any) => v.length >= 3 || '',
+                (v: any) => validateService.isValidLength(v, 3) || '',
             ],
         },
         last_name: {
             value: '',
             rules: [
                 (v: any) => !!v || 'Last name is required',
-                (v: any) => v.length >= 3 || '',
+                (v: any) => validateService.isValidLength(v, 3) || '',
             ],
         },
         phone_number: {
@@ -36,11 +36,11 @@ class Register extends Vue {
                 (v: any) => this.validatePhoneNumber() || 'Phone number should be in proper format',
             ],
         },
-        email: {
+        username: {
             value: '',
             rules: [
-                (v: any) => !!v || 'Email is required',
-                (v: any) => /.+@.+/.test(v) || 'E-mail must be valid',
+                (v: any) => !!v || 'Username is required',
+                (v: any) => validateService.isEmail(v) || 'Username must be valid',
             ],
         },
         password: {

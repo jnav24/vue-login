@@ -19,8 +19,8 @@
 						<v-card-text>
 							<v-text-field
 								prepend-icon="person"
-								v-model="form.email.value"
-								:rules="form.email.rules"
+								v-model="form.username.value"
+								:rules="form.username.rules"
 								label="Email"
 								required></v-text-field>
 							<v-text-field
