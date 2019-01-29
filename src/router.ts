@@ -14,7 +14,7 @@ async function autoLogIn({ next }: any): Promise<void> {
         const response: ResponseInterface = await store.dispatch('isLoggedIn');
 
         if (response.success) {
-            next({ name: 'call-list' });
+            next({ name: 'dashboard' });
         }
 
         next();
