@@ -39,6 +39,10 @@ class ValidateService {
     public isValueInObject(val: any, list: any[], label: string): boolean {
         return !list.filter((item: any) => item[label] === val).length;
     }
+
+    public hasSpecialCharacters(value: string, characters: string = '(?=.*[!$#%]).*'): boolean {
+        return value.match(new RegExp(characters, 'g')) !== null;
+    }
 }
 
 export default ValidateService;
