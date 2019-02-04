@@ -20,7 +20,7 @@ class CookiesService {
         const d = new Date();
         d.setTime(d.getTime() - (1000 * 60 * 60 * 24));
         const expires = 'expires=' + d.toString();
-        document.cookie = `${name} =; ${expires}; Max-Age=-99999999;`;
+        document.cookie = `${name} =; ${expires}; path=/; Max-Age=-99999999;`;
     }
 
     public getStorage(name: string): string | null {
